@@ -1,0 +1,23 @@
+{
+  "name": "expenses-tracker-api",
+  "version": "0.0.1",
+  "description": "A simple expenses tracker api",
+  "main": "app.js",
+  "author": "HawiCaesar",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "morgan": "^1.9.1",
+    "pg": "^7.8.1",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^4.42.1"
+  },
+  "scripts": {
+    "start:dev": "nodemon ./bin/www",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.10"
+  }
+}
