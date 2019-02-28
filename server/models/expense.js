@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     amount: DataTypes.STRING
   }, {});
-  expense.associate = function(models) {
+  expense.associate = models => {
     // associations can be defined here
     expense.belongsTo(models.expenseCategory, {
       foreignKey: 'expenseCategoryId',

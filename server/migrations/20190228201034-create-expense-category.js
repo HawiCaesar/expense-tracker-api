@@ -21,15 +21,6 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
-      },
-      expenseCategoryId: {
-        type: Sequelize.INTEGER,
-        onDelete: 'CASCADE',
-        references: {
-          model: 'expenses',
-          key: 'id',
-          as: 'expenseCategoryId',
-        },
       }
     });
   },
