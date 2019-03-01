@@ -8,7 +8,7 @@ module.exports = {
       description: request.body.description
     })
       .then(category => response.status(201).send(category))
-      .catch(error => response.status(400).send(error));
+      .catch(error => response.status(400).send({ message: `${error}` }));
   },
   list(request, response) {
     return ExpenseCategory.findAll({
@@ -20,7 +20,7 @@ module.exports = {
       ]
     })
       .then(categories => response.status(200).send(categories))
-      .catch(error => response.status(400).send(error));
+      .catch(error => response.status(400).send({ message: `${error}` }));
   },
   retrieve(request, response) {
     return ExpenseCategory.findByPk(request.params.expenseCategoryId, {
@@ -39,7 +39,7 @@ module.exports = {
         }
         return response.status(200).send(category);
       })
-      .catch(error => response.status(400).send(error));
+      .catch(error => response.status(400).send({ message: `${error}` }));
   },
   update(request, response) {
     return ExpenseCategory.findById(request.params.expenseCategoryId, {
@@ -62,7 +62,7 @@ module.exports = {
             description: request.body.description || category.description
           })
           .then(() => response.status(201).send(category))
-          .catch(error => response.status(500).send(error));
+          .catch(error => response.status(500).send({ message: `${error}` }));
       })
       .catch(error => response.status(400).send(error));
   },
@@ -77,7 +77,7 @@ module.exports = {
         return category
           .destroy()
           .then(() => response.status(204).send())
-          .catch(error => response.status(400).send(error));
+          .catch(error => response.status(400).send({ message: `${error}` }));
       }
     );
   }

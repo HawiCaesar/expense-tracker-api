@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('expenses', {
+    return queryInterface.createTable("expenses", {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -24,16 +24,16 @@ module.exports = {
       },
       expenseCategoryId: {
         type: Sequelize.INTEGER,
-        onDelete: 'CASCADE',
+        onDelete: "CASCADE",
         references: {
-          model: 'expenses',
-          key: 'id',
-          as: 'expenseCategoryId',
-        },
+          model: "expenseCategories",
+          key: "id",
+          as: "expenseCategoryId"
+        }
       }
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('expenses');
+    return queryInterface.dropTable("expenses");
   }
 };

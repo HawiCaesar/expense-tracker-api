@@ -14,10 +14,6 @@ module.exports = app => {
     "/api/expense-categories/:expenseCategoryId",
     expenseCategoriesController.retrieve
   );
-  app.post(
-    "/api/expense-categories/:expenseCategoryId/expenses",
-    expenseController.create
-  );
   app.put(
     "/api/expense-categories/:expenseCategoryId",
     expenseCategoriesController.update
@@ -25,5 +21,27 @@ module.exports = app => {
   app.delete(
     "/api/expense-categories/:expenseCategoryId",
     expenseCategoriesController.destroy
+  );
+  app.post(
+    "/api/expense-categories/:expenseCategoryId/expenses",
+    expenseController.create
+  );
+  app.put(
+    "/api/expense-categories/:expenseCategoryId/expenses/:expenseId",
+    expenseController.update
+  );
+  app.delete(
+    "/api/expense-categories/:expenseCategoryId/expenses/:expenseId",
+    expenseController.destroy
+  );
+
+  // method not allowed for
+  app.all(
+    "/api/expense-categories/:expenseCategoryId/expenses",
+    (request, response) => {
+      response.status(405).send({
+        message: "Method not allowed"
+      });
+    }
   );
 };
