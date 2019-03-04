@@ -4,7 +4,13 @@ const expenseController = require("../controllers").expenses;
 module.exports = app => {
   app.get("/api", (request, response) =>
     response.status(200).send({
-      message: "Expense Tracker API"
+      message: "Welcome to the Expense Tracker API"
+    })
+  );
+
+  app.get("*", (request, response) =>
+    response.status(404).send({
+      message: "Oops resource not found"
     })
   );
 
