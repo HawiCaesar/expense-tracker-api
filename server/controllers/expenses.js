@@ -11,7 +11,7 @@ module.exports = {
       .catch(error => response.status(400).send(error));
   },
   update(request, response) {
-    return Expense.find({
+    return Expense.findOne({
       where: {
         id: request.params.expenseId,
         expenseCategoryId: request.params.expenseCategoryId
@@ -34,7 +34,7 @@ module.exports = {
       .catch(error => response.status(400).send(error));
   },
   destroy(request, response) {
-    return Expense.find({
+    return Expense.findOne({
       where: {
         id: request.params.expenseId,
         expenseCategoryId: request.params.expenseCategoryId
