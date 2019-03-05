@@ -2,15 +2,30 @@ const requests = require("supertest");
 const app = require("../app");
 const destroy = require("./teardown");
 const {
+  initialExpenseCategory,
   validExpenseCategory,
   updateExpenseCategory,
   anotherExpenseCategory
 } = require("./fixtures");
 
 const api = new requests(app);
+const timeout = ms => new Promise(res => setTimeout(res, ms));
 
 describe("test expense categories", () => {
-  afterAll(async () => {
+  beforeEach(done => {
+    api
+      .post("/api/expense-categories")
+      .set("Content-Type", "application/json")
+      .send(initialExpenseCategory)
+      .end((error, response) => {
+        if (error) {
+          throw done(error);
+        }
+        done();
+      });
+  });
+
+  afterEach(async () => {
     await destroy.destroyExpenseCategories();
   });
 
@@ -21,6 +36,7 @@ describe("test expense categories", () => {
       .send(validExpenseCategory)
       .end((error, response) => {
         expect(response.status).toEqual(201);
+        expect(response.body.name).toMatch("Food & Upkeep");
         if (error) {
           throw done(error);
         }
@@ -84,11 +100,7 @@ describe("test expense categories", () => {
       .post("/api/expense-categories")
       .set("Content-Type", "application/json")
       .send(anotherExpenseCategory)
-      .end((error, response) => {
-        if (error) {
-          throw done(error);
-        }
-
+      .then(response => {
         api.get("/api/expense-categories").end((error, response) => {
           expect(response.status).toEqual(200);
           expect(response.body.length).toEqual(2);
@@ -97,11 +109,14 @@ describe("test expense categories", () => {
           }
           done();
         });
+      })
+      .catch(error => {
+        throw done(error);
       });
   });
 
   it("should delete one expense category", done => {
-    api.delete("/api/expense-categories/2").end((error, response) => {
+    api.delete("/api/expense-categories/1").end((error, response) => {
       expect(response.status).toEqual(204);
       if (error) {
         throw done(error);

@@ -7,7 +7,7 @@ module.exports = {
       amount: +request.body.amount,
       expenseCategoryId: +request.params.expenseCategoryId
     })
-      .then(expense => response.status(200).send(expense))
+      .then(expense => response.status(201).send(expense))
       .catch(error => response.status(400).send(error));
   },
   update(request, response) {
@@ -28,7 +28,7 @@ module.exports = {
           .update(request.body, {
             fields: Object.keys(request.body)
           })
-          .then(updatedExpense => response.status(201).send(updatedExpense))
+          .then(updatedExpense => response.status(200).send(updatedExpense))
           .catch(error => response.status(500).send(error));
       })
       .catch(error => response.status(400).send(error));

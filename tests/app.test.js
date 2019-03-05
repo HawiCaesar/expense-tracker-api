@@ -16,10 +16,15 @@ describe("Undefined routes", () => {
       done();
     });
   });
+});
 
+describe("Api route test", () => {
   it("should show the welcome route indicate the passage to api", done => {
-    api.get("/api").end((success, response) => {
+    api.get("/api").end((error, response) => {
       expect(response.status).toEqual(200);
+      if (error) {
+        throw done(error);
+      }
       done();
     });
   });
