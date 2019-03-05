@@ -8,12 +8,6 @@ module.exports = app => {
     })
   );
 
-  app.get("*", (request, response) =>
-    response.status(404).send({
-      message: "Oops resource not found"
-    })
-  );
-
   app.post("/api/expense-categories", expenseCategoriesController.create);
   app.get("/api/expense-categories", expenseCategoriesController.list);
   app.get(

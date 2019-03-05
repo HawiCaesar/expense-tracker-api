@@ -15,4 +15,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // require routes
 require("./server/routes")(app);
 
+app.get("*", (request, response) =>
+  response.status(404).send({
+    message: "Oops resource not found"
+  })
+);
+
 module.exports = app;

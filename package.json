@@ -15,7 +15,7 @@
   },
   "scripts": {
     "start:dev": "nodemon ./bin/www",
-    "test": "jest tests"
+    "test": "export NODE_ENV=test && sequelize db:migrate && jest tests/*.test.js"
   },
   "devDependencies": {
     "jest": "^24.1.0",
