@@ -42,7 +42,7 @@ module.exports = {
       .catch(error => response.status(400).send({ message: `${error}` }));
   },
   update(request, response) {
-    return ExpenseCategory.findById(request.params.expenseCategoryId, {
+    return ExpenseCategory.findByPk(request.params.expenseCategoryId, {
       include: [
         {
           model: Expense,
@@ -51,23 +51,22 @@ module.exports = {
       ]
     })
       .then(category => {
-        if (!category) {
-          return resposne.status(404).send({
-            message: "Expense category not found"
-          });
-        }
         return category
           .update({
             name: request.body.name || category.name,
             description: request.body.description || category.description
           })
-          .then(() => response.status(201).send(category))
+          .then(() => response.status(200).send(category))
           .catch(error => response.status(500).send({ message: `${error}` }));
       })
-      .catch(error => response.status(400).send(error));
+      .catch(error =>
+        response.status(400).send({
+          message: "Expense category not found"
+        })
+      );
   },
   destroy(request, response) {
-    return ExpenseCategory.findById(request.params.expenseCategoryId).then(
+    return ExpenseCategory.findByPk(request.params.expenseCategoryId).then(
       category => {
         if (!category) {
           return response.status(404).send({
