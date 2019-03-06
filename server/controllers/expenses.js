@@ -1,20 +1,46 @@
 const Expense = require("../models").expense;
+const ExpenseCategory = require("../models").expenseCategory;
 
 module.exports = {
   create(request, response) {
-    return Expense.create({
-      name: request.body.name,
-      amount: +request.body.amount,
-      expenseCategoryId: +request.params.expenseCategoryId
-    })
-      .then(expense => response.status(201).send(expense))
-      .catch(error => response.status(400).send(error));
+    return ExpenseCategory.findOne({
+      where: {
+        id: request.params.expenseCategoryId,
+        ownerId: request.user.id
+      },
+      include: [
+        {
+          model: Expense,
+          as: "expenses"
+        }
+      ]
+    }).then(category => {
+      if (!category) {
+        return response.status(404).send({
+          message: "Expense category not found"
+        });
+      }
+
+      return Expense.create({
+        name: request.body.name,
+        amount: +request.body.amount,
+        expenseCategoryId: +request.params.expenseCategoryId
+      })
+        .then(expense => response.status(201).send(expense))
+        .catch(error => response.status(400).send(error));
+    });
   },
   update(request, response) {
     return Expense.findOne({
       where: {
         id: request.params.expenseId,
         expenseCategoryId: request.params.expenseCategoryId
+      },
+      include: {
+        model: ExpenseCategory,
+        where: {
+          ownerId: request.user.id
+        }
       }
     })
       .then(expense => {
@@ -38,6 +64,12 @@ module.exports = {
       where: {
         id: request.params.expenseId,
         expenseCategoryId: request.params.expenseCategoryId
+      },
+      include: {
+        model: ExpenseCategory,
+        where: {
+          ownerId: request.user.id
+        }
       }
     })
       .then(expense => {
