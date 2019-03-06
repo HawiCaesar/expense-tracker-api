@@ -12,7 +12,7 @@ module.exports = {
         .send({ message: "Please provide a valid email address" });
     }
     const clientHashedPassword = Helper.hashPassword(request.body.password);
-    user
+    return user
       .create({
         email: request.body.email,
         password: clientHashedPassword
@@ -44,7 +44,7 @@ module.exports = {
         .send({ message: "Please provide a valid email address" });
     }
 
-    user
+    return user
       .findOne({
         where: {
           email: request.body.email
@@ -60,10 +60,10 @@ module.exports = {
           const token = Helper.generateToken(user.dataValues.id);
           return response.status(200).send({ token });
         }
-        return response.status(400).send({ message: "Incorrect credentials" });
+        return response.status(401).send({ message: "Incorrect credentials" });
       })
       .catch(error => {
-        return response.status(400).send({ message: "Incorrect credentials" });
+        return response.status(401).send({ message: "Incorrect credentials" });
       });
   }
 };

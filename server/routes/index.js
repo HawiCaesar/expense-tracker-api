@@ -10,7 +10,7 @@ module.exports = app => {
     })
   );
 
-  app.post("/api/users", usersController.createUser);
+  app.post("/api/users/signup", usersController.createUser);
   app.post("/api/users/login", usersController.loginUser);
 
   app.post(
