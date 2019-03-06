@@ -1,5 +1,7 @@
 const expenseCategoriesController = require("../controllers").expenseCategories;
 const expenseController = require("../controllers").expenses;
+const usersController = require("../controllers").users;
+const Auth = require("../middleware/auth");
 
 module.exports = app => {
   app.get("/api", (request, response) =>
@@ -8,30 +10,47 @@ module.exports = app => {
     })
   );
 
-  app.post("/api/expense-categories", expenseCategoriesController.create);
-  app.get("/api/expense-categories", expenseCategoriesController.list);
+  app.post("/api/users/signup", usersController.createUser);
+  app.post("/api/users/login", usersController.loginUser);
+
+  app.post(
+    "/api/expense-categories",
+    Auth.verifyToken,
+    expenseCategoriesController.create
+  );
+  app.get(
+    "/api/expense-categories",
+    Auth.verifyToken,
+    expenseCategoriesController.list
+  );
   app.get(
     "/api/expense-categories/:expenseCategoryId",
+    Auth.verifyToken,
     expenseCategoriesController.retrieve
   );
   app.put(
     "/api/expense-categories/:expenseCategoryId",
+    Auth.verifyToken,
     expenseCategoriesController.update
   );
   app.delete(
     "/api/expense-categories/:expenseCategoryId",
+    Auth.verifyToken,
     expenseCategoriesController.destroy
   );
   app.post(
     "/api/expense-categories/:expenseCategoryId/expenses",
+    Auth.verifyToken,
     expenseController.create
   );
   app.put(
     "/api/expense-categories/:expenseCategoryId/expenses/:expenseId",
+    Auth.verifyToken,
     expenseController.update
   );
   app.delete(
     "/api/expense-categories/:expenseCategoryId/expenses/:expenseId",
+    Auth.verifyToken,
     expenseController.destroy
   );
 

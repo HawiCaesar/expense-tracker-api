@@ -5,13 +5,17 @@ module.exports = {
   create(request, response) {
     return ExpenseCategory.create({
       name: request.body.name,
-      description: request.body.description
+      description: request.body.description,
+      ownerId: request.user.id
     })
       .then(category => response.status(201).send(category))
       .catch(error => response.status(400).send({ message: `${error}` }));
   },
   list(request, response) {
     return ExpenseCategory.findAll({
+      where: {
+        ownerId: request.user.id
+      },
       include: [
         {
           model: Expense,
@@ -23,7 +27,11 @@ module.exports = {
       .catch(error => response.status(400).send({ message: `${error}` }));
   },
   retrieve(request, response) {
-    return ExpenseCategory.findByPk(request.params.expenseCategoryId, {
+    return ExpenseCategory.findOne({
+      where: {
+        id: request.params.expenseCategoryId,
+        ownerId: request.user.id
+      },
       include: [
         {
           model: Expense,
@@ -42,7 +50,11 @@ module.exports = {
       .catch(error => response.status(400).send({ message: `${error}` }));
   },
   update(request, response) {
-    return ExpenseCategory.findByPk(request.params.expenseCategoryId, {
+    return ExpenseCategory.findOne({
+      where: {
+        id: request.params.expenseCategoryId,
+        ownerId: request.user.id
+      },
       include: [
         {
           model: Expense,
@@ -66,18 +78,21 @@ module.exports = {
       );
   },
   destroy(request, response) {
-    return ExpenseCategory.findByPk(request.params.expenseCategoryId).then(
-      category => {
-        if (!category) {
-          return response.status(404).send({
-            message: "Expense category not found"
-          });
-        }
-        return category
-          .destroy()
-          .then(() => response.status(204).send())
-          .catch(error => response.status(400).send({ message: `${error}` }));
+    return ExpenseCategory.findOne({
+      where: {
+        id: request.params.expenseCategoryId,
+        ownerId: request.user.id
       }
-    );
+    }).then(category => {
+      if (!category) {
+        return response.status(404).send({
+          message: "Expense category not found"
+        });
+      }
+      return category
+        .destroy()
+        .then(() => response.status(204).send())
+        .catch(error => response.status(400).send({ message: `${error}` }));
+    });
   }
 };

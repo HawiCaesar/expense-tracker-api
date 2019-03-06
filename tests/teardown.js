@@ -1,5 +1,5 @@
 const ExpenseCategory = require("../server/models").expenseCategory;
-const Expense = require("../server/models").expense;
+const User = require("../server/models").user;
 
 module.exports = {
   destroyExpenseCategories() {
@@ -9,10 +9,11 @@ module.exports = {
       cascade: true
     });
   },
-  destroyExpenses() {
-    return Expense.destroy({
-      where: {},
-      truncate: true
+  destroyUsers() {
+    return User.destroy({
+      truncate: true,
+      restartIdentity: true,
+      cascade: true
     });
   }
 };

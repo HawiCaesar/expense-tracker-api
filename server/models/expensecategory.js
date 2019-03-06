@@ -14,6 +14,11 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: "expenseCategoryId",
       as: "expenses"
     });
+
+    expenseCategory.belongsTo(models.expenseCategory, {
+      foreignKey: "ownerId",
+      onDelete: "CASCADE"
+    });
   };
   return expenseCategory;
 };
