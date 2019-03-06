@@ -7,11 +7,11 @@ module.exports = {
       amount: +request.body.amount,
       expenseCategoryId: +request.params.expenseCategoryId
     })
-      .then(expense => response.status(200).send(expense))
+      .then(expense => response.status(201).send(expense))
       .catch(error => response.status(400).send(error));
   },
   update(request, response) {
-    return Expense.find({
+    return Expense.findOne({
       where: {
         id: request.params.expenseId,
         expenseCategoryId: request.params.expenseCategoryId
@@ -28,13 +28,13 @@ module.exports = {
           .update(request.body, {
             fields: Object.keys(request.body)
           })
-          .then(updatedExpense => response.status(201).send(updatedExpense))
+          .then(updatedExpense => response.status(200).send(updatedExpense))
           .catch(error => response.status(500).send(error));
       })
       .catch(error => response.status(400).send(error));
   },
   destroy(request, response) {
-    return Expense.find({
+    return Expense.findOne({
       where: {
         id: request.params.expenseId,
         expenseCategoryId: request.params.expenseCategoryId
