@@ -31,9 +31,10 @@ This is a node.js app that depends on the following technologies.
 4. Open the expense-tracker-api folder.
 5. Create a .env file using the .env.example as a guide.
 6. `yarn install` to install all dependencies.
-7. `yarn start:dev` to start the app in development mode.
-8. `yarn test` runs all the tests.
-9. The app runs on port 8000
+7. `sequelize db:migrate` to run migrations.
+8. `yarn start:dev` to start the app in development mode.
+9. `yarn test` runs all the tests.
+10. The app runs on port 8000
 
 ## Features of the API
 - A user can create an expense category
