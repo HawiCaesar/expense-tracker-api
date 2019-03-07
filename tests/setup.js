@@ -28,8 +28,6 @@ const testUsers = [
 module.exports = {
   testUsers,
   createUser(user) {
-    return User.bulkCreate(user, { returning: true }).then(user => {
-      //console.log("created ******", user);
-    });
+    return User.bulkCreate(user, { returning: true });
   }
 };
