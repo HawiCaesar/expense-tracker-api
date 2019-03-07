@@ -18,7 +18,10 @@ This is a node.js app that depends on the following technologies.
 
 ### Pre requisites
 
-- Install nodejs, postgresql, sequelize-cli if not installed.
+- Install (if not installed)
+  - nodejs
+  - postgresql
+  - sequelize-cli (install this globally)
 
 ### Installation
 
