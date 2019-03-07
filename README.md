@@ -14,11 +14,13 @@ This is a node.js app that depends on the following technologies.
 
 [**Postgresql**](https://www.postgresql.org/): PostgreSQL is a powerful, open source object-relational database system.
 
-## Installation
+## Pre requisites & Installation
 
 ### Pre requisites
 
 - Install nodejs, postgresql, sequelize-cli if not installed.
+
+## Installation
 
 1. Navigate to the directory you want it installed to. cd your folder
 2. Clone the repository `https://github.com/HawiCaesar/expense-tracker-api.git`.
