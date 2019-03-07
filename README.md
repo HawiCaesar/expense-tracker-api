@@ -20,7 +20,7 @@ This is a node.js app that depends on the following technologies.
 
 - Install nodejs, postgresql, sequelize-cli if not installed.
 
-## Installation
+### Installation
 
 1. Navigate to the directory you want it installed to. cd your folder
 2. Clone the repository `https://github.com/HawiCaesar/expense-tracker-api.git`.
