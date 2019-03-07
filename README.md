@@ -8,7 +8,7 @@ This is a node.js app that depends on the following technologies.
 
 [**Express.js**](https://expressjs.com/): A Fast, opinionated, minimalist web framework for node which was used in routing this application.
 
-[**BodyParser**](https://babeljs.io/): This module was used to collect search data sent from the client side to the routing page.
+[**BodyParser**](https://github.com/expressjs/body-parser): This module was used to collect search data sent from the client side to the routing page.
 
 [**Sequelize**](https://www.sequelizejs.com): Sequelize is a promise-based Node.js ORM for Postgres Server which is the database server for the app. It features solid transaction support, relations, read replication and more.
 
