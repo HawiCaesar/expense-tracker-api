@@ -6,7 +6,7 @@ const User = require("../server/models").user;
 
 const api = new requests(app);
 
-describe.only("user tests", () => {
+describe("user tests", () => {
   afterAll(async () => {
     await destroy.destroyUsers();
   });
