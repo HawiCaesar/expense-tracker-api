@@ -4,7 +4,7 @@ jobs:
     working_directory: ~/expense-tracker-api
     docker:
       # specify the version you desire here
-      - image: circleci/node:9.9
+      - image: circleci/node:chakracore-10.1
       - image: postgres:11.1
         environment:
           POSTGRES_USER: expense_tracker_api
