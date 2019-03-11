@@ -32,6 +32,11 @@ updateExpense = {
   amount: 50
 };
 
+invalidExpense = {
+  name: "Scones",
+  amount: "an amount"
+};
+
 module.exports = {
   initialExpenseCategory,
   validExpenseCategory,
@@ -39,5 +44,6 @@ module.exports = {
   anotherExpenseCategory,
   validExpense,
   anotherExpense,
-  updateExpense
+  updateExpense,
+  invalidExpense
 };

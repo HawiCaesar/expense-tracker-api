@@ -5,7 +5,8 @@ const destroy = require("./teardown");
 const {
   validExpenseCategory,
   validExpense,
-  anotherExpense
+  anotherExpense,
+  invalidExpense
 } = require("./fixtures");
 
 const api = new requests(app);
@@ -44,12 +45,12 @@ describe("Expenses tests", () => {
       .set("x-access-token", setup.testUsers[0].token)
       .send(validExpense)
       .end((error, response) => {
-        expect(response.status).toEqual(201);
-        expect(response.body.name).toMatch("Fruits & vegetables");
-        expect(response.body.amount).toEqual(500);
         if (error) {
           throw done(error);
         }
+        expect(response.status).toEqual(201);
+        expect(response.body.name).toMatch("Fruits & vegetables");
+        expect(response.body.amount).toEqual(500);
         done();
       });
   });
@@ -61,11 +62,11 @@ describe("Expenses tests", () => {
       .set("x-access-token", setup.testUsers[1].token)
       .send(validExpense)
       .end((error, response) => {
-        expect(response.status).toEqual(404);
-        expect(response.body.message).toMatch("Expense category not found");
         if (error) {
           throw done(error);
         }
+        expect(response.status).toEqual(404);
+        expect(response.body.message).toMatch("Expense category not found");
         done();
       });
   });
@@ -81,11 +82,11 @@ describe("Expenses tests", () => {
           .get("/api/expense-categories/1")
           .set("x-access-token", setup.testUsers[0].token)
           .end((error, response) => {
-            expect(response.status).toEqual(200);
-            expect(response.body.expenses.length).toEqual(1);
             if (error) {
               throw done(error);
             }
+            expect(response.status).toEqual(200);
+            expect(response.body.expenses.length).toEqual(1);
             done();
           });
       })
@@ -105,11 +106,11 @@ describe("Expenses tests", () => {
           .get("/api/expense-categories/1")
           .set("x-access-token", setup.testUsers[1].token)
           .end((error, response) => {
-            expect(response.status).toEqual(404);
-            expect(response.body.message).toMatch("Expense category not found");
             if (error) {
               throw done(error);
             }
+            expect(response.status).toEqual(404);
+            expect(response.body.message).toMatch("Expense category not found");
             done();
           });
       })
@@ -131,11 +132,11 @@ describe("Expenses tests", () => {
           .set("x-access-token", setup.testUsers[0].token)
           .send(updateExpense)
           .end((error, response) => {
-            expect(response.status).toEqual(200);
-            expect(response.body.amount).toEqual(50);
             if (error) {
               throw done(error);
             }
+            expect(response.status).toEqual(200);
+            expect(response.body.amount).toEqual(50);
             done();
           });
       })
@@ -157,11 +158,11 @@ describe("Expenses tests", () => {
           .set("x-access-token", setup.testUsers[1].token)
           .send(updateExpense)
           .end((error, response) => {
-            expect(response.status).toEqual(404);
-            expect(response.body.message).toMatch("Expense not found");
             if (error) {
               throw done(error);
             }
+            expect(response.status).toEqual(404);
+            expect(response.body.message).toMatch("Expense not found");
             done();
           });
       })
@@ -183,11 +184,11 @@ describe("Expenses tests", () => {
           .set("x-access-token", setup.testUsers[0].token)
           .send(updateExpense)
           .end((error, response) => {
-            expect(response.status).toEqual(404);
-            expect(response.body.message).toMatch("Expense not found");
             if (error) {
               throw done(error);
             }
+            expect(response.status).toEqual(404);
+            expect(response.body.message).toMatch("Expense not found");
             done();
           });
       })
@@ -207,10 +208,10 @@ describe("Expenses tests", () => {
           .delete("/api/expense-categories/1/expenses/1")
           .set("x-access-token", setup.testUsers[0].token)
           .end((error, response) => {
-            expect(response.status).toEqual(204);
             if (error) {
               throw done(error);
             }
+            expect(response.status).toEqual(204);
             done();
           });
       });
@@ -227,11 +228,11 @@ describe("Expenses tests", () => {
           .delete("/api/expense-categories/1/expenses/13")
           .set("x-access-token", setup.testUsers[0].token)
           .end((error, response) => {
-            expect(response.status).toEqual(404);
-            expect(response.body.message).toMatch("Expense not found");
             if (error) {
               throw done(error);
             }
+            expect(response.status).toEqual(404);
+            expect(response.body.message).toMatch("Expense not found");
             done();
           });
       });
@@ -248,13 +249,63 @@ describe("Expenses tests", () => {
           .delete("/api/expense-categories/1/expenses/1")
           .set("x-access-token", setup.testUsers[1].token)
           .end((error, response) => {
-            expect(response.status).toEqual(404);
-            expect(response.body.message).toMatch("Expense not found");
             if (error) {
               throw done(error);
             }
+            expect(response.status).toEqual(404);
+            expect(response.body.message).toMatch("Expense not found");
             done();
           });
+      });
+  });
+
+  it("should show an error when no name given in an expense", done => {
+    api
+      .post("/api/expense-categories/1/expenses")
+      .set("Content-Type", "application/json")
+      .set("x-access-token", setup.testUsers[0].token)
+      .send({})
+      .end((error, response) => {
+        if (error) {
+          throw done(error);
+        }
+        expect(response.status).toEqual(400);
+        expect(response.body.message).toMatch("Expense name is required");
+        done();
+      });
+  });
+
+  it("should show an error when no amount given in an expense", done => {
+    api
+      .post("/api/expense-categories/1/expenses")
+      .set("Content-Type", "application/json")
+      .set("x-access-token", setup.testUsers[0].token)
+      .send({ name: "Muffin" })
+      .end((error, response) => {
+        if (error) {
+          throw done(error);
+        }
+        expect(response.status).toEqual(400);
+        expect(response.body.message).toMatch("Expense amount is required");
+        done();
+      });
+  });
+
+  it("should show an error when amount is invalid in an expense", done => {
+    api
+      .post("/api/expense-categories/1/expenses")
+      .set("Content-Type", "application/json")
+      .set("x-access-token", setup.testUsers[0].token)
+      .send(invalidExpense)
+      .end((error, response) => {
+        if (error) {
+          throw done(error);
+        }
+        expect(response.status).toEqual(400);
+        expect(response.body.message).toMatch(
+          "Expense amount must be a number"
+        );
+        done();
       });
   });
 });

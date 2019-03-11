@@ -2,6 +2,7 @@ const expenseCategoriesController = require("../controllers").expenseCategories;
 const expenseController = require("../controllers").expenses;
 const usersController = require("../controllers").users;
 const Auth = require("../middleware/auth");
+const validation = require("../middleware/validation");
 
 module.exports = app => {
   app.get("/api", (request, response) =>
@@ -16,6 +17,7 @@ module.exports = app => {
   app.post(
     "/api/expense-categories",
     Auth.verifyToken,
+    validation.validateExpenseCategories,
     expenseCategoriesController.create
   );
   app.get(
@@ -41,6 +43,7 @@ module.exports = app => {
   app.post(
     "/api/expense-categories/:expenseCategoryId/expenses",
     Auth.verifyToken,
+    validation.validateExpenses,
     expenseController.create
   );
   app.put(
