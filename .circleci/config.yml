@@ -20,7 +20,7 @@ jobs:
       # Download and cache dependencies
       - run:
         name: update_yarn
-        command: "sudo npm install -g yarn@latest"
+        command: 'sudo npm install -g yarn@latest'
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "package.json" }}
