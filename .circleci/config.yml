@@ -35,10 +35,10 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       - run: # run tests!
-        name: test_code
-        environment:
-          TEST_DATABASE_USERNAME: expense_tracker_api
-          TEST_DATABASE: database_test
-          TEST_DATABASE_PASSWORD: expense_tracker_api_pass123
-          JWT_SECRET: thisIsACICDSecretOkayYesLetsMoveOnNow
-        command: yarn test
+          name: test
+          environment:
+            TEST_DATABASE_USERNAME: expense_tracker_api
+            TEST_DATABASE: database_test
+            TEST_DATABASE_PASSWORD: expense_tracker_api_pass123
+            JWT_SECRET: thisIsACICDSecretOkayYesLetsMoveOnNow
+          command: yarn test
