@@ -20,7 +20,7 @@
     "start:dev": "nodemon ./bin/www",
     "test": "export NODE_ENV=test && sequelize db:migrate && jest tests/*.test.js -i --silent --detectOpenHandles --forceExit",
     "coverage": "yarn test --coverage",
-    "coverage-report": "yarn test --coverage && cat ./coverage/lc.info | coveralls"
+    "coverage-report": "yarn test --coverage --coverageReporters=text-lcov && cat ./coverage/lc.info | coveralls"
   },
   "husky": {
     "hooks": {
