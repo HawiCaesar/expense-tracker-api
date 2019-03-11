@@ -43,3 +43,6 @@ jobs:
             TEST_DATABASE_PASSWORD: expense_tracker_api_pass123
             JWT_SECRET: thisIsACICDSecretOkayYesLetsMoveOnNow
           command: yarn test
+      - run:
+          name: code-coverage-report
+          command: yarn coverage-report
