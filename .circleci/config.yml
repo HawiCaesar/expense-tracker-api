@@ -4,7 +4,7 @@ jobs:
     working_directory: ~/expense-tracker-api
     docker:
       # specify the version you desire here
-      - image: circleci/node:7.10
+      - image: circleci/node:9.9
       - image: postgres:11.1
         environment:
           POSTGRES_USER: expense_tracker_api
@@ -20,7 +20,7 @@ jobs:
       # Download and cache dependencies
       - run:
           name: update_yarn
-          command: "sudo npm install -g yarn@latest"
+          command: "sudo npm install -g yarn"
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "package.json" }}
