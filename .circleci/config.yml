@@ -36,7 +36,7 @@ jobs:
 
       - run: # run tests!
         name: test_code
-        command: |
+        command: 
           export TEST_DATABASE_USERNAME='expense_tracker_api'
           export TEST_DATABASE='database_test'
           export TEST_DATABASE_PASSWORD='expense_tracker_api_pass123'
