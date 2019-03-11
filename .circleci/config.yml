@@ -5,7 +5,7 @@ jobs:
       # specify the version you desire here
       - image: circleci/node:7.10
       - image: postgres:11.1
-      - environment
+      - environment:
         POSTGRES_USER: expense_tracker_api
         POSTGRES_DB: database_test
         POSTGRES_PASSWORD: expense_tracker_api_pass123
@@ -15,11 +15,8 @@ jobs:
       # documented at https://circleci.com/docs/2.0/circleci-images/
       # - image: circleci/mongo:3.4.4
 
-
-      
-
     working_directory: ~/expense-tracker-api
-    
+
     steps:
       - checkout
 
@@ -37,7 +34,7 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      - run:  # run tests!
+      - run: # run tests!
         name: test_code
         command: |
           export TEST_DATABASE_USERNAME='expense_tracker_api'
