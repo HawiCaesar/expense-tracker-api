@@ -1,5 +1,7 @@
 # Expense Tracker API
 
+[![CircleCI](https://circleci.com/gh/HawiCaesar/expense-tracker-api/tree/master.svg?style=svg)](https://circleci.com/gh/HawiCaesar/expense-tracker-api/tree/master)
+
 An API that helps you log expenses and categorize them
 
 ## Dependencies
@@ -37,7 +39,8 @@ This is a node.js app that depends on the following technologies.
 10. The app runs on port 8000
 
 ## Features of the API
-- A user can signup 
+
+- A user can signup
 - A user can login
 - A user can create an expense category
 - A user can update an expense category
