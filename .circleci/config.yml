@@ -1,25 +1,22 @@
 version: 2
 jobs:
   build:
+    working_directory: ~/expense-tracker-api
     docker:
       # specify the version you desire here
       - image: circleci/node:7.10
       - image: postgres:11.1
-      - environment:
-        POSTGRES_USER: expense_tracker_api
-        POSTGRES_DB: database_test
-        POSTGRES_PASSWORD: expense_tracker_api_pass123
+        environment:
+          POSTGRES_USER: expense_tracker_api
+          POSTGRES_DB: database_test
+          POSTGRES_PASSWORD: expense_tracker_api_pass123
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
       # - image: circleci/mongo:3.4.4
-
-    working_directory: ~/expense-tracker-api
-
     steps:
       - checkout
-
       # Download and cache dependencies
       - restore_cache:
           keys:
