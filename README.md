@@ -2,6 +2,8 @@
 
 [![CircleCI](https://circleci.com/gh/HawiCaesar/expense-tracker-api/tree/master.svg?style=svg)](https://circleci.com/gh/HawiCaesar/expense-tracker-api/tree/master)
 
+[![Coverage Status](https://coveralls.io/repos/github/HawiCaesar/expense-tracker-api/badge.svg?branch=master)](https://coveralls.io/github/HawiCaesar/expense-tracker-api?branch=master)
+
 An API that helps you log expenses and categorize them
 
 ## Dependencies

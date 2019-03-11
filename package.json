@@ -18,7 +18,9 @@
   },
   "scripts": {
     "start:dev": "nodemon ./bin/www",
-    "test": "export NODE_ENV=test && sequelize db:migrate && jest tests/*.test.js -i --silent --detectOpenHandles --forceExit"
+    "test": "export NODE_ENV=test && sequelize db:migrate && jest tests/*.test.js -i --silent --detectOpenHandles --forceExit",
+    "coverage": "yarn test --coverage",
+    "coverage-report": "yarn test --coverage && cat coverage/lcov.info | coveralls"
   },
   "husky": {
     "hooks": {
@@ -26,6 +28,7 @@
     }
   },
   "devDependencies": {
+    "coveralls": "^3.0.3",
     "husky": "^1.3.1",
     "jest": "^24.1.0",
     "nodemon": "^1.18.10",

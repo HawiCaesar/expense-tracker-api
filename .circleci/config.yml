@@ -5,6 +5,11 @@ jobs:
     docker:
       # specify the version you desire here
       - image: circleci/node:10.9.0
+        environment:
+          TEST_DATABASE_USERNAME: expense_tracker_api
+          TEST_DATABASE: database_test
+          TEST_DATABASE_PASSWORD: expense_tracker_api_pass123
+          JWT_SECRET: thisIsACICDSecretOkayYesLetsMoveOnNow
       - image: postgres:11.1
         environment:
           POSTGRES_USER: expense_tracker_api
@@ -37,9 +42,7 @@ jobs:
 
       - run: # run tests!
           name: test
-          environment:
-            TEST_DATABASE_USERNAME: expense_tracker_api
-            TEST_DATABASE: database_test
-            TEST_DATABASE_PASSWORD: expense_tracker_api_pass123
-            JWT_SECRET: thisIsACICDSecretOkayYesLetsMoveOnNow
           command: yarn test
+      - run:
+          name: code-coverage-report
+          command: yarn coverage-report
