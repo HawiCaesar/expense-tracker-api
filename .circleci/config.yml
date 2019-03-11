@@ -36,9 +36,9 @@ jobs:
 
       - run: # run tests!
         name: test_code
-        command: 
-          export TEST_DATABASE_USERNAME='expense_tracker_api'
-          export TEST_DATABASE='database_test'
-          export TEST_DATABASE_PASSWORD='expense_tracker_api_pass123'
-          export JWT_SECRET='thisIsACICDSecretOkayYesLetsMoveOnNow'
+        command: |
+          echo export TEST_DATABASE_USERNAME="expense_tracker_api"
+          echo export TEST_DATABASE="database_test"
+          echo export TEST_DATABASE_PASSWORD="expense_tracker_api_pass123"
+          echo export JWT_SECRET="thisIsACICDSecretOkayYesLetsMoveOnNow"
           yarn test
