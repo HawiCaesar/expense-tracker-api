@@ -86,6 +86,7 @@ describe("Expenses tests", () => {
               throw done(error);
             }
             expect(response.status).toEqual(200);
+            expect(response.body.expensesTotal).toEqual(70);
             expect(response.body.expenses.length).toEqual(1);
             done();
           });
