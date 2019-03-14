@@ -1,5 +1,6 @@
 const ExpenseCategory = require("../models").expenseCategory;
 const Expense = require("../models").expense;
+const sequelize = require("sequelize");
 
 module.exports = {
   create(request, response) {
@@ -38,16 +39,39 @@ module.exports = {
           as: "expenses"
         }
       ]
-    })
-      .then(category => {
-        if (!category) {
-          return response.status(404).send({
-            message: "Expense category not found"
-          });
-        }
-        return response.status(200).send(category);
+    }).then(category => {
+      if (!category) {
+        return response.status(404).send({
+          message: "Expense category not found"
+        });
+      }
+      return Expense.findOne({
+        where: {
+          expenseCategoryId: request.params.expenseCategoryId
+        },
+        attributes: [
+          "expenseCategoryId",
+          [sequelize.fn("sum", sequelize.col("amount")), "total"]
+        ],
+        group: ["expense.expenseCategoryId"]
       })
-      .catch(error => response.status(400).send({ message: `${error}` }));
+        .then(summedExpenses => {
+          let totalExpenses = 0;
+          if (summedExpenses !== null) {
+            totalExpenses = +summedExpenses.dataValues.total;
+          }
+          return response.status(200).send({
+            id: category.id,
+            name: category.name,
+            description: category.description,
+            updatedAt: category.updatedAt,
+            createdAt: category.createdAt,
+            expensesTotal: totalExpenses,
+            expenses: category.expenses
+          });
+        })
+        .catch(error => response.status(400).send({ message: `${error}` }));
+    });
   },
   update(request, response) {
     return ExpenseCategory.findOne({

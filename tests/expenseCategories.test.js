@@ -110,7 +110,6 @@ describe("test expense categories", () => {
           throw done(error);
         }
         expect(response.status).toEqual(200);
-        expect(JSON.parse(response.text).id).toEqual(1);
         done();
       });
   });
