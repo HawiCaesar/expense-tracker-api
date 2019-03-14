@@ -20,7 +20,9 @@ const config = {
     operatorsAliases: false
   },
   staging: {
-    use_env_variable: process.env.DATABASE_URL
+    use_env_variable: process.env.DATABASE_URL,
+    dialect: "postgres",
+    operatorsAliases: false
   },
   production: {
     username: "brianhawi",
