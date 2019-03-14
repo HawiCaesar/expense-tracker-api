@@ -21,7 +21,7 @@
   },
   "scripts": {
     "start": "nodemon ./bin/www",
-    "heroku-postbuild": "sequelize db:migrate:undo:all && sequelize db:migrate",
+    "heroku-postbuild": "npm install -g sequelize-cli && sequelize db:migrate:undo:all && sequelize db:migrate",
     "test": "export NODE_ENV=test && sequelize db:migrate && jest tests/*.test.js -i --silent --detectOpenHandles --forceExit",
     "coverage": "yarn test --coverage",
     "coverage-report": "yarn test --coverage && cat coverage/lcov.info | coveralls"
