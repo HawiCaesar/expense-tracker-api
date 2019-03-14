@@ -8,8 +8,7 @@ const config = {
     host: "127.0.0.1",
     port: 5432,
     dialect: "postgres",
-    operatorsAliases: false,
-    use_env_variable: process.env.DATABASE_URL
+    operatorsAliases: false
   },
   test: {
     username: process.env.TEST_DATABASE_USERNAME,
@@ -19,6 +18,9 @@ const config = {
     port: 5432,
     dialect: "postgres",
     operatorsAliases: false
+  },
+  staging: {
+    use_env_variable: process.env.DATABASE_URL
   },
   production: {
     username: "brianhawi",
