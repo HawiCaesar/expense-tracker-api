@@ -19,16 +19,8 @@ const config = {
     dialect: "postgres",
     operatorsAliases: false
   },
-  staging: {
-    use_env_variable: "DATABASE_URL",
-    dialect: "postgres",
-    operatorsAliases: false
-  },
   production: {
-    username: "brianhawi",
-    password: null,
-    database: "database_production",
-    host: "127.0.0.1",
+    use_env_variable: "DATABASE_URL",
     dialect: "postgres",
     operatorsAliases: false
   }
