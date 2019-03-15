@@ -10,10 +10,14 @@ module.exports = {
       return queryInterface.createTable('users', { id: Sequelize.INTEGER });
     */
 
-    return queryInterface.addConstraint("users", ["email"], {
-      type: "unique",
-      name: "email_unique_constraint"
-    });
+    return queryInterface
+      .addConstraint("users", ["email"], {
+        type: "unique",
+        name: "email_unique_constraint"
+      })
+      .then(() => {
+        console.log("email unique migrated");
+      });
   },
 
   down: (queryInterface, Sequelize) => {
