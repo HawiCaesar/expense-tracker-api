@@ -64,6 +64,7 @@ module.exports = {
             id: category.id,
             name: category.name,
             description: category.description,
+            ownerId: category.ownerId,
             updatedAt: category.updatedAt,
             createdAt: category.createdAt,
             expensesTotal: totalExpenses,
