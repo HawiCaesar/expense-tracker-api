@@ -20,6 +20,7 @@ const config = {
     operatorsAliases: false
   },
   production: {
+    ssl: true,
     use_env_variable: "DATABASE_URL",
     dialect: "postgres",
     operatorsAliases: false
